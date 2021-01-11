@@ -1,0 +1,6 @@
+--
+- hosts: localhost
+  sudo: yes
+  tasks:
+    - name: install apache
+      yum: name=httpd update_cache=yes state=latest
