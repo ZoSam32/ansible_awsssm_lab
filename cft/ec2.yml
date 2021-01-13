@@ -2,6 +2,12 @@ Parameters:
     KeyName:
         Description: The EC2 key pair to all access
         Type: AWS::EC2::KeyPair::KeyName
+    GitHubOwner:
+      Type: String
+    GitHubRepo:
+      Type: String
+    GitHubBranch:
+      Type: String
 Resources:
     EC2InstanceLab:
         Type: AWS::EC2::Instance
@@ -20,3 +26,25 @@ Resources:
                   FromPort: 22
                   ToPort: 22
                   CidrIp: 0.0.0.0/0
+    InAssoc:
+      Type: AWS::SSM::Association
+      Properties:
+        Name: AWS-ApplyAnsiblePlaybooks
+        Targets:
+          - Key: InstanceIds
+            Values: [ !Ref EC2InstanceLab ]
+        Parameters:
+          SourceType:
+            - !Sub |
+                {"owner":"${GitHubOwner}",
+                "repository":"${GitHubRepo}",
+                "path":"/cm",
+                "getOptions":"${GitHubBranch}"}
+          PlaybookFile:
+            - apache.yml
+          ExtraVariables:
+            - 'SSM=True'
+          Check:
+            - 'False'
+          Verbose:
+            - '-v'
