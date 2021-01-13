@@ -15,7 +15,7 @@ Resources:
             SecurityGroups:
                 - !Ref InstanceSecurityGroup
             KeyName: !Ref KeyName
-            ImageId: ami-0be2609ba883822ec
+            ImageId: ami-096fda3c22c1c990a
             InstanceType: t2.micro
     InstanceSecurityGroup:
         Type: AWS::EC2::SecurityGroup
