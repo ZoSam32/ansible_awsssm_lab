@@ -35,6 +35,8 @@ Resources:
             Values: [ !Ref EC2InstanceLab ]
         Parameters:
           SourceType:
+            - GitHub
+          SourceInfo:
             - !Sub |
                 {"owner":"${GitHubOwner}",
                 "repository":"${GitHubRepo}",
