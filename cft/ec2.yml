@@ -18,6 +18,14 @@ Resources:
             ImageId: ami-096fda3c22c1c990a
             InstanceType: t2.micro
             IamInstanceProfile: !Ref InstanceProfile
+            UserData:
+              Fn::Base64:
+                !Sub |
+                  #!/bin/bash
+                  cd tmp
+                  sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+                  sudo systemctl enable amazon-ssm-agent
+                  sudo systemctl start amazon-ssm-agent
     InstanceRole:
       Type: AWS::IAM::Role
       Properties:
@@ -70,7 +78,7 @@ Resources:
                 {"owner":"${GitHubOwner}",
                 "repository":"${GitHubRepo}",
                 "path":"/cm",
-                "getOptions":"${GitHubBranch}"}
+                "getOptions":"branch:${GitHubBranch}"}
           PlaybookFile:
             - apache.yml
           ExtraVariables:
