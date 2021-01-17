@@ -17,18 +17,22 @@ Resources:
             KeyName: !Ref KeyName
             ImageId: ami-096fda3c22c1c990a
             InstanceType: t2.micro
+            IamInstanceProfile: !Ref InstanceProfile
     InstanceRole:
       Type: AWS::IAM::Role
       Properties:
+        Path: /
+        ManagedPolicyArns:
+          - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
         AssumeRolePolicyDocument:
           Version: "2012-10-17"
           Statement:
-          - Effect: "Allow"
-            Principal:
-              Service:
-              - "ec2.amazonaws.com"
-              - "ssm.amazonaws.com"
-          Action: "sts:AssumeRole"
+            - Effect: "Allow"
+              Principal:
+                Service:
+                - "ec2.amazonaws.com"
+                - "ssm.amazonaws.com"
+              Action: "sts:AssumeRole"
     InstanceProfile:
       Type: AWS::IAM::InstanceProfile
       Properties:
