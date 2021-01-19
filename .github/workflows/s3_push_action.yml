@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy: Upload to S3
+  deploy: Upload to Amazon S3
   runs-on: ubuntu-latest
 
   steps:
