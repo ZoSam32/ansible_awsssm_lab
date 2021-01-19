@@ -23,4 +23,4 @@ jobs:
 
     - name: copy files to s3
       run: |
-        aws s3 sync . s3://"$S3_BUCKET"
+        aws s3 sync . s3://zolabs-ssm-association
