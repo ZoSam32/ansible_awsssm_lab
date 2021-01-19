@@ -6,19 +6,21 @@ on:
       - main
 
 jobs:
-  deploy: Upload to Amazon S3
-  runs-on: ubuntu-latest
+  deploy:
+    name: Upload to S3
+    runs-on: ubuntu-latest
 
-  steps:
-  - name: checkout
-    uses: actions/checkout@2
+    steps:
+    - name: checkout
+      uses: actions/checkout@2
 
-  - name: configure AWS creds
-    uses: aws-actions/configure-aws-credentials@v1
-    with:
-      aws-access-key-id: ${{ secrets.LAB_AWS_ACCESS_KEY_ID }}
-      aws-secret-access-key: ${{ secrets.LAB_AWS_SECRET_ACCESS_KEY }}
+    - name: configure AWS creds
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.LAB_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.LAB_AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-  - name: copy files to s3
-    run: |
-      aws s3 sync . s3://zolabs-ssm-association
+    - name: copy files to s3
+      run: |
+        aws s3 sync . s3://zolabs-ssm-association
