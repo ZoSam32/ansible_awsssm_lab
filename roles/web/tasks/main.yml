@@ -7,8 +7,8 @@
 
 - name: "Insert Ansible Time"
   blockinfile:
-  path: "{{ install_path }}{{ index_file}}"
-  marker: "<!--{mark} Ansible Block -->"
-  insertafter: "</h2>"
-  block: |
-    <h2>Last update on {{ ansible_date_time.iso8601  }}</h2>
+    path: "{{ install_path }}{{ index_file}}"
+    marker: "<!--{mark} Ansible Block -->"
+    insertafter: "</h2>"
+    block: |
+      <h2>Last update on {{ ansible_date_time.iso8601  }}</h2>
