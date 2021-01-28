@@ -3,4 +3,4 @@
 - name: "copy webpage"
   copy:
     src: "{{ role_path }}/files/index.html"
-    dest: /var/www/html/index.html
+    dest: "{{ install_path }}index.html"
