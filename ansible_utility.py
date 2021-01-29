@@ -37,13 +37,16 @@ def s3_download_file(bucket_name, object_name, file_name):
 # call s3_download)file
 s3_download_file(bucket_name, object_name, file_name)
 
-#sample ansible execution via the ansible-runner wrapper
 # function to run Ansible via ansible-runner wrapper
-r = ansible_runner.run(private_data_dir='ansible-runner', playbook='rhel-apache.yml')
-print("{}: {}".format(r.status, r.rc))
-# successfull: 0
-for each_host_event in r.events:
-    print(each_host_event['event'])
-print("Final status:")
-print(r.status)
+def ansible_runner_call(data_dir, playbook):
+    r = ansible_runner.run(private_data_dir=data_dir, playbook=playbook)
+    print("{}: {}".format(r.status, r.rc))
+    # successfull: 0 
+    for each_host_event in r.events:
+        print("Final Status:")
+        print(r.status)
 
+# call Ansible-Runner
+data_dir = 'ansible-runner'
+playbook = 'rhel-apache.yml'
+ansible_runner_call(data_dir, playbook)
