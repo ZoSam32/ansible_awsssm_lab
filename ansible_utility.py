@@ -1,13 +1,10 @@
 import boto3
 import os
+import sys
+import getopt
 import logging
 import botocore
 import ansible_runner
-
-bucket_name = 'zolabs-ssm-association'
-s3_folder = '/roles'
-object_name = 'rhel-apache.yml'
-file_name = object_name
 
 # Func to downloand Ansible roles from S3
 def s3_download_folder(bucket_name, s3_folder, local_dir=None):
@@ -24,18 +21,11 @@ def s3_download_folder(bucket_name, s3_folder, local_dir=None):
             continue
         bucket.download_file(obj.key, target)
 
-# Call s3_downnload
-s3_download_folder(bucket_name, s3_folder)
-
-
 # func to download the Ansible's main root playbook
 def s3_download_file(bucket_name, object_name, file_name):
 
     s3 = boto3.client('s3')
     s3.download_file(bucket_name, object_name, file_name)
-
-# call s3_download)file
-s3_download_file(bucket_name, object_name, file_name)
 
 # function to run Ansible via ansible-runner wrapper
 def ansible_runner_call(data_dir, playbook):
@@ -46,7 +36,39 @@ def ansible_runner_call(data_dir, playbook):
         print("Final Status:")
         print(r.status)
 
-# call Ansible-Runner
-data_dir = 'ansible-runner'
-playbook = 'rhel-apache.yml'
-ansible_runner_call(data_dir, playbook)
+if __name__ == "__main__":
+    args= sys.argv[1:]
+
+    bucket_name = ''
+    s3_folder = ''
+    object_name = ''
+    
+    try:
+        opts, args = getopt.getopt(args,"b:f:r:")
+    except getopt.GetoptError:
+        print("send with vars dummy")
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-b':
+            bucket_name = arg
+        elif opt == '-f':
+            s3_folder = arg
+        elif opt == '-r':
+            object_name = arg
+    
+    # object_name for local file name
+    file_name = object_name
+
+    # Call s3_downnload
+    print(bucket_name)
+    s3_download_folder(bucket_name, s3_folder)
+
+    # call s3_download)file
+    s3_download_file(bucket_name, object_name, file_name)
+
+    # call Ansible-Runner
+    data_dir = 'ansible-runner'
+    playbook = object_name
+    ansible_runner_call(data_dir, playbook)
+
+
