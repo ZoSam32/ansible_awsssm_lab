@@ -1,0 +1,14 @@
+--- 
+- name: "Install Apache"
+  hosts: localhost
+  become: yes
+
+  roles:
+  - install-apache
+
+- name: "Add webpage"
+  hosts: localhost
+  become: yes
+
+  roles:
+  - web
