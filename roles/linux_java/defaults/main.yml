@@ -1,0 +1,4 @@
+---
+# defaults file for apache
+
+#java_source_url: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u282b08.msi

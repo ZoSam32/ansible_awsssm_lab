@@ -1,0 +1,12 @@
+---
+# tasks file for apache
+
+- name: Install base packages
+  package:
+    name: ['wget','tar','unzip']
+    state: present
+
+- name: Install Java
+  yum:
+    name: {{ java_package }}
+    state: present
