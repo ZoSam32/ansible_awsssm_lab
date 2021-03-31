@@ -1,0 +1,35 @@
+---
+name: ci_linux_tomcat
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      #with:
+      #  path: 'roles/Java'
+
+    - name: Set up Python3
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install test dependencies
+      run: pip3 install ansible molecule-docker docker yamllint ansible-lint
+
+    #- name: CD to role dir
+    #  run: cd roles/Java/
+    
+    - name: Run Molecule tests
+      run: molecule test
+      working-directory: ./roles/linux_tomcat
+      env:
+        PY_COLORS: '1'
+        ANSIBLE_FORCE_COLOR: '1'
