@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - ansible_structure
 
 jobs:
   molecule:
