@@ -1,0 +1,5 @@
+---
+# defaults file for apache
+tomcat_windows_source_url: https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43-windows-x64.zip
+tomcat_source_url: https://archive.apache.org/dist/tomcat/tomcat-9/v{{ tomcat_ver }}/bin/apache-tomcat-{{ tomcat_ver }}.tar.gz
+tomcat_install_dest: /tmp/apache-tomcat-{{ tomcat_ver }}.tar.gz

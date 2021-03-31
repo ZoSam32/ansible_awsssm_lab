@@ -1,0 +1,8 @@
+---
+
+tomcat_ver: 9.0.43             # Tomcat version to install
+ui_manager_user: manager_user  # User to access the UI manager
+ui_manager_pwd: P@ssw0rd       # UI manager password
+ui_admin_user: admin           # User to access manager and admin UI
+ui_admin_pwd: AdminP@ssw0rd    # UI admin password
+
