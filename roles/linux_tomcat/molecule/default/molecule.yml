@@ -6,7 +6,7 @@ driver:
 platforms:
   - name: instance
     image: "lsamaniego/docker-centos8-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
