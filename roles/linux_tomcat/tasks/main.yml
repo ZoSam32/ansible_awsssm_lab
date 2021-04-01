@@ -4,6 +4,11 @@
 #   import_tasks: linux.yml
 #   when: ansible_facts['os_family'] == 'RedHat'
 
+- name: Install Java
+  package:
+    name: java-1.8.0-openjdk
+    state: present
+
 - name: Install base packages
   package:
     name: ['wget','tar','unzip']
@@ -25,6 +30,7 @@
   get_url:
     url: "{{ tomcat_source_url }}"
     dest: "{{ tomcat_install_dest }}"
+  register: download_tomcat
 
 - name: Create tomcat dir
   file:
@@ -41,6 +47,7 @@
     group: tomcat
     remote_src: yes
     extra_opts: "--strip-components=1"
+  when: download_tomcat.changed
 
 - name: copy tomcat service file
   template:
